@@ -7,9 +7,10 @@
         </div>
     </div>
 
-    <div fxFlex>
+    <div fxFlex *ngIf="dishes">
         <mat-grid-list cols="2" rowHeight="200px">
-            <mat-grid-tile *ngFor="let dish of dishes" (click)="onSelected(dish);">
+            <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish.id]">
+                <!--(click)="onSelected(dish);-->
                 <img height="200px" src={{dish.image}} alt={{dish.name}}>
                 <mat-grid-tile-footer>
                     <h1> {{dish.name |uppercase}} </h1>
@@ -17,7 +18,14 @@
             </mat-grid-tile>
         </mat-grid-list>
     </div>
-    <app-dishdetail [selectedDish]="selectedDish"></app-dishdetail>
+
+    <div fxFlex [hidden]="dishes">
+        <mat-spinner>
+        </mat-spinner>
+        <h4>Loading please wait</h4>
+    </div>
+    <!--<app-dishdetail [selectedDish]="selectedDish"></app-dishdetail>-->
+    <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish.id]"></mat-grid-tile>
 
     <!--<div class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign.gt-md="space-around center" fxLayoutGap="10px" fxLayoutGap.xs="0">
 
