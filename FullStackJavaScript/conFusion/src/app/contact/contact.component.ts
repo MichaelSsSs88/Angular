@@ -1,12 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { flyInOut, expand } from '../animations/app.animation';
 import { Feedback, ContactType } from '../shared/feedback';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
+  styleUrls: ['./contact.component.scss'],
+  host: {
+    '[@flyInOut]': 'true',
+    'style': 'display: block;'
+    },
+    animations: [
+      flyInOut(),
+      expand(),
+    ]
 })
 export class ContactComponent implements OnInit {
 
@@ -44,8 +52,8 @@ export class ContactComponent implements OnInit {
     'telnum': {
       'required':      'Tel. number is required.',
       'pattern':       'Tel. number must contain only numbers.',
-      'minlength':     'Last Name must be at least 10 characters long.',
-      'maxlength':     'Last Name cannot be more than 10 characters long.'
+      'minlength':     'Last Name must be at least 11 characters long.',
+      'maxlength':     'Last Name cannot be more than 11 characters long.'
     },
     'email': {
       'required':      'Email is required.',

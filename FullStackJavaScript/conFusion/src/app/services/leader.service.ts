@@ -1,8 +1,11 @@
-import { leaders } from './../shared/leaders';
+//import { leaders } from './../shared/leaders';
 import { leader } from './../shared/leader';
 import { Injectable } from '@angular/core';
-import { delay } from 'rxjs/operators';
+//import { delay } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { baseURL } from '../shared/baseurl';
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -11,7 +14,22 @@ import { Observable, of } from 'rxjs';
 })
 export class LeaderService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  getServices(): Observable<leader[]>{
+    
+    return this.http.get<leader[]>(baseURL + 'leadership');
+  }
+
+  getService(id: number): Observable<leader> {
+    
+    return this.http.get<leader>(baseURL + 'leadership/' + id);
+   }
+
+   getFeaturedService(): Observable<leader> {
+   
+    return this.http.get<leader[]>(baseURL + 'leadership?featured=true').pipe(map(leaders => leaders[0]));
+  }
 
   /*getServices(): Promise<leader[]>{
     //return new Promise(resolve=>{setTimeout(() => resolve(leaders),2000)});
@@ -30,7 +48,7 @@ export class LeaderService {
     return of(leaders.filter((Leader) => Leader.featured)[0]).pipe(delay(2000)).toPromise();
   }*/
 
-  getServices(): Observable<leader[]>{
+  /*getServices(): Observable<leader[]>{
     //return new Promise(resolve=>{setTimeout(() => resolve(leaders),2000)});
     return of(leaders).pipe(delay(2000));
   }
@@ -45,5 +63,5 @@ export class LeaderService {
     //return Promise.resolve(leaders.filter((Leader) => Leader.featured)[0]);
     //return new Promise(resolve =>{setTimeout(()=>resolve(leaders.filter((Leader) => Leader.featured)[0]),2000)});
     return of(leaders.filter((Leader) => Leader.featured)[0]).pipe(delay(2000));
-  }
+  }*/
 }

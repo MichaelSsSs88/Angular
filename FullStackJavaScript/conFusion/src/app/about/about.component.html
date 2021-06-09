@@ -58,7 +58,7 @@
 
         <mat-card cols="1" *ngFor="let Leader of Leader" fxFlexAlign='inline'>
             <mat-card-header fxFlex="10">
-                <img id="photo" height="100px" src={{Leader.image}} alt={{Leader.name}}>
+                <img id="photo" height="100px" src="{{BaseURL + Leader.image}}" alt={{Leader.name}}>
 
 
             </mat-card-header>
